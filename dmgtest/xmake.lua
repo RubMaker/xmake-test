@@ -1,0 +1,32 @@
+set_version("1.0.0")
+add_rules("mode.debug", "mode.release")
+
+includes("@builtin/xpack")
+
+target("dmgtest")
+    add_rules("xcode.application")
+    add_files("src/*.m", "src/**.storyboard", "src/*.xcassets")
+    add_files("src/Info.plist")
+
+xpack("dmgtest")
+    set_formats("dmg", "zip", "targz")
+    set_title("dmgtest")
+    set_author("rubmaker")
+    set_description("A dmgtest installer.")
+    set_homepage("https://xmake.io")
+    set_licensefile("LICENSE.md")
+    add_targets("dmgtest")
+    add_installfiles("src/(assets/*.png)", {prefixdir = "images"})
+    add_sourcefiles("(src/**)")
+    set_iconfile("src/assets/xmake.ico")
+
+    after_installcmd(function (package, batchcmds)
+        batchcmds:mkdir(package:installdir("resources"))
+        batchcmds:cp("src/assets/*.txt", package:installdir("resources"), {rootdir = "src"})
+        batchcmds:mkdir(package:installdir("stub"))
+    end)
+
+    after_uninstallcmd(function (package, batchcmds)
+        batchcmds:rmdir(package:installdir("resources"))
+        batchcmds:rmdir(package:installdir("stub"))
+    end)
