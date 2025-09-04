@@ -1,8 +1,36 @@
+set_version("1.0.0")
 add_rules("mode.debug", "mode.release")
+
+includes("@builtin/xpack")
 
 target("appimagetest")
     set_kind("binary")
     add_files("src/*.cpp")
+
+xpack("appimagetest")
+    set_formats("appimage", "zip", "targz", "runself")
+    --set_formats("zip", "targz", "runself")
+    set_title("appimagetest")
+    set_author("wgx")
+    set_description("A test installer.")
+    set_homepage("https://xmake.io")
+    set_licensefile("LICENSE.md")
+    add_targets("appimagetest")
+    add_installfiles("src/(assets/*.png)", {prefixdir = "images"})
+    add_sourcefiles("(src/**)")
+    set_iconfile("src/xmake.png")
+    set_iconname("xmake")
+
+    after_installcmd(function (package, batchcmds)
+        batchcmds:mkdir(package:installdir("resources"))
+        batchcmds:cp("src/assets/*.txt", package:installdir("resources"), {rootdir = "src"})
+        batchcmds:mkdir(package:installdir("stub"))
+    end)
+
+    after_uninstallcmd(function (package, batchcmds)
+        batchcmds:rmdir(package:installdir("resources"))
+        batchcmds:rmdir(package:installdir("stub"))
+    end)
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
