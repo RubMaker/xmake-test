@@ -6,6 +6,7 @@ includes("@builtin/xpack")
 target("appimagetest")
     set_kind("binary")
     add_files("src/*.cpp")
+    add_links("sqlite3")
 
 xpack("appimagetest")
     set_formats("appimage", "zip", "targz", "runself")
