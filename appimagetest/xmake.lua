@@ -9,7 +9,7 @@ target("appimagetest")
     add_links("sqlite3")
 
 xpack("appimagetest")
-    set_formats("appimage", "zip", "targz", "runself")
+    set_formats("appimage", "zip", "targz", "srczip", "srctargz")
     --set_formats("zip", "targz", "runself")
     set_title("appimagetest")
     set_author("wgx")
