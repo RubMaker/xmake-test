@@ -8,7 +8,7 @@ target("hello")
     add_files("src/*.cpp")
 
 xpack("hello")
-    set_formats("appimage", "zip", "targz", "runself")
+    set_formats("zip", "targz", "runself")
     --set_formats("zip", "targz", "runself")
     set_title("hello")
     set_author("wgx")

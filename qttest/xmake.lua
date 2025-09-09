@@ -18,8 +18,8 @@ target("test")
    
    
   xpack("test")
-    set_formats("zip", "targz", "srczip", "srctargz")
-    --set_formats("zip", "targz", "runself")
+    --set_formats("zip", "targz", "srczip", "srctargz")
+    set_formats("appimage", "runself")
     set_title("test")
     set_author("wgx")
     set_description("A test installer.")
