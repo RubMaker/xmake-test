@@ -5,7 +5,7 @@ includes("@builtin/xpack")
 
 add_requires("qt5widgets")
 
-target("test")
+target("qttest")
     add_rules("qt.widgetapp")
     add_packages("qt5widgets")
 
@@ -17,18 +17,20 @@ target("test")
     add_files("include/mainwindow.h")
    
    
-  xpack("test")
+  xpack("qttest")
     --set_formats("zip", "targz", "srczip", "srctargz")
     set_formats("appimage", "runself")
-    set_title("test")
+    set_title("qttest")
     set_author("wgx")
     set_description("A test installer.")
     set_homepage("https://xmake.io")
     set_licensefile("LICENSE.md")
-    add_targets("test")
+    set_iconfile("src/xmake.png")
+    add_targets("qttest")
     add_installfiles("src/(assets/*.png)", {prefixdir = "images"})
     add_sourcefiles("(src/**)")
-    set_iconname("xmake")
+    -- set_iconname("xmake")
+    --set_iconname("xmake")
 
     after_installcmd(function (package, batchcmds)
         batchcmds:mkdir(package:installdir("resources"))

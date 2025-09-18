@@ -5,7 +5,7 @@ includes("@builtin/xpack")
 
 add_requires("qt6widgets")
 
-target("test")
+target("qttest")
     add_rules("qt.widgetapp")
     add_packages("qt6widgets")
 
@@ -17,18 +17,17 @@ target("test")
     add_files("include/mainwindow.h")
    
    
-  xpack("test")
-    set_formats("zip", "targz", "srczip", "srctargz")
-    --set_formats("zip", "targz", "runself")
-    set_title("test")
+  xpack("qttest")
+    --set_formats("zip", "targz", "srczip", "srctargz")
+    set_formats("deb", "runself")
+    set_title("qttest")
     set_author("wgx")
     set_description("A test installer.")
     set_homepage("https://xmake.io")
     set_licensefile("LICENSE.md")
-    add_targets("test")
+    add_targets("qttest")
     add_installfiles("src/(assets/*.png)", {prefixdir = "images"})
     add_sourcefiles("(src/**)")
-    set_iconname("xmake")
 
     after_installcmd(function (package, batchcmds)
         batchcmds:mkdir(package:installdir("resources"))
